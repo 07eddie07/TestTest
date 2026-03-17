@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenstone Landscapes — Luxury Landscaping</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1f16;
+    --olive: #3d4a2e;
+    --sage: #7a8c6a;
+    --gold: #b8965a;
+    --light: #faf8f4;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--light); color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(26,31,22,0.95);
+    backdrop-filter: blur(12px);
+    padding: 1rem 4rem;
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 300;
+    color: white; letter-spacing: 0.08em; text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--gold);
+    padding: 0.55rem 1.4rem; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh; min-height: 700px;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(26,31,22,0.25) 0%, rgba(26,31,22,0.7) 100%),
+      url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80') center/cover no-repeat;
+    transform: scale(1.05);
+    animation: heroZoom 14s ease-out forwards;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to { transform: scale(1); }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 4rem 7rem;
+    max-width: 760px;
+    opacity: 0; animation: heroFade 1.2s 0.4s ease forwards;
+  }
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label {
+    font-family: var(--sans); font-size: 0.7rem; font-weight: 400;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300; line-height: 1.08; color: white;
+    margin-bottom: 1.8rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero p {
+    font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+    color: rgba(255,255,255,0.7); max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--gold); color: var(--dark);
+    padding: 1rem 2.2rem; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: #c9a868; }
+  .btn-ghost {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    display: flex; align-items: center; gap: 0.6rem;
+    transition: color 0.25s;
+  }
+  .btn-ghost::after { content: '→'; }
+  .btn-ghost:hover { color: white; }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; right: 4rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    z-index: 2;
+  }
+  .hero-scroll span {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+  }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    background: var(--dark); padding: 5rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  .intro-strip h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; color: white; line-height: 1.2;
+  }
+  .intro-strip h2 em { font-style: italic; color: var(--gold); }
+  .intro-strip p {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.9;
+    color: rgba(255,255,255,0.55); margin-bottom: 2rem;
+  }
+  .stats-row { display: flex; gap: 3rem; margin-top: 1.5rem; }
+  .stat-item { }
+  .stat-num {
+    font-family: var(--serif); font-size: 2.8rem; font-weight: 300;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-top: 0.3rem;
+  }
+
+  /* SERVICES */
+  .services { padding: 7rem 4rem; background: var(--cream); }
+  .section-header { margin-bottom: 4rem; }
+  .section-tag {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 0.8rem;
+  }
+  .section-header h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; color: var(--dark); line-height: 1.2;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+    background: rgba(61,74,46,0.12);
+  }
+  .service-card {
+    background: var(--cream); padding: 2.8rem 2.4rem;
+    position: relative; overflow: hidden;
+    transition: all 0.35s ease;
+    cursor: default;
+  }
+  .service-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 2px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover { background: var(--dark); }
+  .service-card:hover .service-num,
+  .service-card:hover .service-title,
+  .service-card:hover .service-desc { color: rgba(255,255,255,0.85); }
+  .service-card:hover .service-title { color: white; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: var(--serif); font-size: 1rem; font-weight: 300;
+    color: var(--gold); margin-bottom: 1.5rem; display: block;
+  }
+  .service-icon {
+    font-size: 1.6rem; margin-bottom: 1.2rem; display: block;
+    filter: grayscale(0.3);
+  }
+  .service-title {
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 400;
+    color: var(--dark); margin-bottom: 0.9rem; line-height: 1.2;
+    transition: color 0.35s;
+  }
+  .service-desc {
+    font-size: 0.85rem; font-weight: 300; line-height: 1.8;
+    color: rgba(26,31,22,0.6); transition: color 0.35s;
+  }
+
+  /* PROCESS */
+  .process { padding: 7rem 4rem; background: var(--light); }
+  .process .section-header { margin-bottom: 5rem; }
+  .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+  .process-step { position: relative; }
+  .step-connector {
+    position: absolute; top: 1.4rem; left: calc(100% - 1.5rem);
+    width: calc(100% - 1rem); height: 1px;
+    background: linear-gradient(to right, var(--sage), transparent);
+    pointer-events: none;
+  }
+  .step-connector:last-child { display: none; }
+  .step-num {
+    font-family: var(--serif); font-size: 3.5rem; font-weight: 300;
+    color: var(--cream); line-height: 1; margin-bottom: -0.5rem;
+    -webkit-text-stroke: 1px rgba(61,74,46,0.2);
+  }
+  .step-title {
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+    color: var(--dark); margin-bottom: 0.8rem;
+  }
+  .step-desc {
+    font-size: 0.85rem; font-weight: 300; line-height: 1.85;
+    color: rgba(26,31,22,0.55);
+  }
+
+  /* GALLERY STRIP */
+  .gallery-strip {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: 320px 320px;
+    gap: 4px;
+  }
+  .gallery-item {
+    overflow: hidden; position: relative; cursor: pointer;
+  }
+  .gallery-item:first-child { grid-row: 1 / 3; }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,31,22,0.5), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .gallery-item:hover .overlay { opacity: 1; }
+  .gallery-cta {
+    text-align: center; padding: 3rem; background: var(--dark);
+  }
+  .gallery-cta a {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+    border-bottom: 1px solid rgba(184,150,90,0.3);
+    padding-bottom: 0.2rem;
+    transition: border-color 0.25s;
+  }
+  .gallery-cta a:hover { border-color: var(--gold); }
+
+  /* VALUES */
+  .values { padding: 7rem 4rem; background: var(--olive); }
+  .values .section-tag { color: rgba(255,255,255,0.4); }
+  .values .section-header h2 { color: white; }
+  .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; margin-top: 4rem; }
+  .value-item { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1.8rem; }
+  .value-icon { font-size: 1.4rem; margin-bottom: 1rem; }
+  .value-title {
+    font-family: var(--serif); font-size: 1.1rem; font-weight: 400;
+    color: white; margin-bottom: 0.7rem;
+  }
+  .value-desc {
+    font-size: 0.83rem; font-weight: 300; line-height: 1.8;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 7rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    background: var(--dark);
+    align-items: start;
+  }
+  .contact-left h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 300; color: white; line-height: 1.15; margin-bottom: 1.5rem;
+  }
+  .contact-left h2 em { font-style: italic; color: var(--gold); }
+  .contact-left p {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.9;
+    color: rgba(255,255,255,0.45); margin-bottom: 3rem;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-info-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .contact-info-label {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); min-width: 70px; padding-top: 0.15rem;
+  }
+  .contact-info-val {
+    font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.65);
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: white; padding: 0.85rem 1rem;
+    font-family: var(--sans); font-size: 0.88rem; font-weight: 300;
+    outline: none; transition: border-color 0.25s;
+    resize: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select { appearance: none; cursor: pointer; color: rgba(255,255,255,0.5); }
+  .form-submit {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--gold); color: var(--dark); border: none;
+    padding: 1.1rem 2.4rem; cursor: pointer;
+    transition: background 0.25s; align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: #c9a868; }
+
+  /* FOOTER */
+  footer {
+    background: #111510; padding: 2.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer p {
+    font-size: 0.75rem; color: rgba(255,255,255,0.25); font-weight: 300;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    nav.scrolled { padding: 0.8rem 2rem; }
+    .nav-links { display: none; }
+    .hero-content { padding: 0 2rem 5rem; }
+    .hero-scroll { right: 2rem; }
+    .intro-strip { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 2rem; }
+    .services { padding: 5rem 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process { padding: 5rem 2rem; }
+    .process-steps { grid-template-columns: 1fr; gap: 2rem; }
+    .step-connector { display: none; }
+    .gallery-strip { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: auto; }
+    .gallery-item { height: 220px; }
+    .values { padding: 5rem 2rem; }
+    .values-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .contact { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Green<span>stone</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-label">Luxury Landscape Design &amp; Maintenance</p>
+    <h1>Where nature meets <em>refined</em> craft</h1>
+    <p>We design, build, and maintain exceptional outdoor spaces — blending timeless aesthetics with sustainable practices across the Hamptons and East End.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start Your Project</a>
+      <a href="#gallery" class="btn-ghost">View Our Work</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<section class="intro-strip">
+  <div class="fade-up">
+    <h2>Turning your property into a <em>living work of art</em></h2>
+  </div>
+  <div class="fade-up">
+    <p>At Greenstone Landscapes, we bring 25 years of expertise to every property we touch. From initial concept through installation and year-round care, our team of certified professionals delivers landscapes that are as enduring as they are beautiful.</p>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">600+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header fade-up">
+    <p class="section-tag">What We Do</p>
+    <h2>Comprehensive landscape services,<br>from vision to reality</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <span class="service-num">01</span>
+      <span class="service-icon">✦</span>
+      <h3 class="service-title">Landscape Design</h3>
+      <p class="service-desc">Custom designs tailored to your property's unique character — from conceptual sketches and 3D renderings to full planting plans and hardscape layouts.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-num">02</span>
+      <span class="service-icon">◈</span>
+      <h3 class="service-title">Outdoor Living</h3>
+      <p class="service-desc">Patios, pergolas, outdoor kitchens, fire features, and entertainment areas that seamlessly extend your living space into the landscape.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-num">03</span>
+      <span class="service-icon">❋</span>
+      <h3 class="service-title">Planting &amp; Installation</h3>
+      <p class="service-desc">Expert installation of trees, shrubs, perennials, and native plantings — each backed by our industry-leading lifetime warranty.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-num">04</span>
+      <span class="service-icon">⬡</span>
+      <h3 class="service-title">Pools &amp; Water Features</h3>
+      <p class="service-desc">Stunning pools, water walls, ponds, and fountains designed to become the centerpiece of your outdoor sanctuary.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-num">05</span>
+      <span class="service-icon">◎</span>
+      <h3 class="service-title">Year-Round Maintenance</h3>
+      <p class="service-desc">Ongoing care programs that keep every element of your landscape in peak condition through every season.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-num">06</span>
+      <span class="service-icon">△</span>
+      <h3 class="service-title">Certified Tree Care</h3>
+      <p class="service-desc">Arborist-led tree health assessments, pruning, removal, and preservation — protecting your most valuable natural assets.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div id="gallery" class="gallery-strip">
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80" alt="Lush garden landscape">
+    <div class="overlay"></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80" alt="Stone patio">
+    <div class="overlay"></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Manicured lawn">
+    <div class="overlay"></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=600&q=80" alt="Pool landscape">
+    <div class="overlay"></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Outdoor living space">
+    <div class="overlay"></div>
+  </div>
+</div>
+<div class="gallery-cta">
+  <a href="#contact">View Full Gallery →</a>
+</div>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-header fade-up">
+    <p class="section-tag">How It Works</p>
+    <h2>Our process, designed for<br>a seamless experience</h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step fade-up">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Consultation</h3>
+      <p class="step-desc">We begin with a thorough site visit to understand your vision, lifestyle, and property's unique conditions. No obligation, no pressure.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Design &amp; Proposal</h3>
+      <p class="step-desc">Our designers create detailed plans and 3D renderings, paired with a transparent itemized proposal — ready within 48 hours for maintenance projects.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">03</div>
+      <h3 class="step-title">Installation</h3>
+      <p class="step-desc">Our crews execute your project with precision and care, with a dedicated project manager keeping you informed every step of the way.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Final Walkthrough</h3>
+      <p class="step-desc">Before we consider any project complete, we walk every detail with you — and don't sign off until you're fully satisfied.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">05</div>
+      <h3 class="step-title">Ongoing Care</h3>
+      <p class="step-desc">Flexible seasonal maintenance programs keep your landscape thriving year-round, backed by our lifetime warranty on all plantings.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">06</div>
+      <h3 class="step-title">Your Sanctuary</h3>
+      <p class="step-desc">The end result: an outdoor space that exceeds expectations and grows more beautiful with every passing season.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="section-header fade-up">
+    <p class="section-tag">Our Promise</p>
+    <h2>What sets us apart</h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-item fade-up">
+      <div class="value-icon">🌿</div>
+      <h3 class="value-title">Lifetime Warranty</h3>
+      <p class="value-desc">Every tree and shrub we plant is backed by a lifetime warranty. Every hardscape by a 5-year guarantee. We stand behind our work unconditionally.</p>
+    </div>
+    <div class="value-item fade-up">
+      <div class="value-icon">⏱</div>
+      <h3 class="value-title">On-Time, Every Time</h3>
+      <p class="value-desc">We respect your time. Maintenance estimates within 48 hours, project timelines honored, and communication that's always prompt and clear.</p>
+    </div>
+    <div class="value-item fade-up">
+      <div class="value-icon">🤝</div>
+      <h3 class="value-title">Neighbor Advocacy</h3>
+      <p class="value-desc">We treat your property as if it were our own. Long-term relationships built on trust, respect, and a genuine commitment to your vision.</p>
+    </div>
+    <div class="value-item fade-up">
+      <div class="value-icon">📋</div>
+      <h3 class="value-title">Transparent Process</h3>
+      <p class="value-desc">No surprises. Detailed proposals, clear contracts, and a two-way scorecard that keeps us accountable to the standards you deserve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left fade-up">
+    <h2>Ready to transform your <em>outdoor space?</em></h2>
+    <p>Whether you're envisioning a complete landscape overhaul or simply want to maintain the beauty you already have, we'd love to hear from you. Reach out and let's start a conversation.</p>
+    <div class="contact-info">
+      <div class="contact-info-item">
+        <span class="contact-info-label">Phone</span>
+        <span class="contact-info-val">(631) 555-0190</span>
+      </div>
+      <div class="contact-info-item">
+        <span class="contact-info-label">Email</span>
+        <span class="contact-info-val">hello@greenstonelands.com</span>
+      </div>
+      <div class="contact-info-item">
+        <span class="contact-info-label">Address</span>
+        <span class="contact-info-val">42 Old Stone Hwy, East Hampton, NY 11937</span>
+      </div>
+      <div class="contact-info-item">
+        <span class="contact-info-label">Hours</span>
+        <span class="contact-info-val">Mon–Sat, 8am–6pm</span>
+      </div>
+    </div>
+  </div>
+  <div class="fade-up">
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="jane@email.com">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="(631) 555-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service Interest</label>
+        <select>
+          <option value="" disabled selected>Select a service...</option>
+          <option>Landscape Design</option>
+          <option>Outdoor Living</option>
+          <option>Planting & Installation</option>
+          <option>Year-Round Maintenance</option>
+          <option>Tree Care</option>
+          <option>Pools & Water Features</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell us about your project</label>
+        <textarea rows="5" placeholder="Describe your vision, property size, timeline..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Greenstone Landscapes. All rights reserved.</p>
+  <nav class="footer-links">
+    <a href="#">Services</a>
+    <a href="#">Gallery</a>
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">Instagram</a>
+  </nav>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
